@@ -29,19 +29,17 @@ will need updating for other systems.
 | Step | Script | Description |
 |------|--------|-------------|
 | 01 | `01_ribodetector.sh` | Remove rRNA reads (RiboDetector) |
-| 02 | `02_trinity_assembly.sh` | De novo assembly — Phase 1 (Trinity, single-node) |
-| 03 | `03_trinity_phase2.sh` | De novo assembly — Phase 2 (Trinity, distributed via HpcGridRunner; see `config/SLURM.conf`) |
-| 04 | `04_salmon_abundance.sh` | Estimate transcript abundance per sample (Salmon via Trinity utility) → gene count matrix |
-| 05 | `05_transdecoder.sh` | Predict ORFs (TransDecoder); split peptide FASTA into 3 000 files for parallel BLAST |
-| 06 | `06a_blastp_nr_array1.sh` / `06b_blastp_nr_array2.sh` | BLASTp vs. NCBI nr — two-part SLURM array job for taxonomy-ID assignment |
-| 07 | `07_combine_blastp_nr.sh` | Concatenate per-query BLAST outputs; extract TaxIDs |
-| 08 | `08_Transcript_Taxa_Identification.R` | (R) Select longest isoform per gene; assign taxonomy via taxonomizr; merge with count matrix |
-| 09 | `09_blastp_uniprot.sh` | BLASTp vs. UniProt (release 2023_01) for gene functional annotation |
-| 10 | `10_Gene_Function_Identification.R` | (R) Filter gene IDs by symbiont kingdom; select best E-value hit per isoform |
-| 11 | `11_blast_eprunastri.sh` | Validate *Lecanoromycetes* gene assignments against the *E. prunastri* genome |
-| 12 | `12_Differential_Expression_GO_analysis.R` | (R) edgeR differential expression; MA-style volcano plots (Fig. 2); topGO enrichment; heatmaps |
+| 02 | `02_trinity_assembly.sh` | De novo assembly (Trinity, distributed via HpcGridRunner; see `config/SLURM.conf`) |
+| 04 | `03_salmon_abundance.sh` | Estimate transcript abundance per sample (Salmon via Trinity utility) → gene count matrix |
+| 05 | `04_transdecoder.sh` | Predict ORFs (TransDecoder); split peptide FASTA into 3 000 files for parallel BLAST |
+| 06 | `05a_blastp_nr_array1.sh` / `05b_blastp_nr_array2.sh` | BLASTp vs. NCBI nr — two-part SLURM array job for taxonomy-ID assignment |
+| 07 | `06_combine_blastp_nr.sh` | Concatenate per-query BLAST outputs; extract TaxIDs |
+| 08 | `07_Transcript_Taxa_Identification.R` | (R) Select longest isoform per gene; assign taxonomy via taxonomizr; merge with count matrix |
+| 09 | `08_blastp_uniprot.sh` | BLASTp vs. UniProt (release 2023_01) for gene functional annotation |
+| 10 | `09_Gene_Function_Identification.R` | (R) Filter gene IDs by symbiont kingdom; select best E-value hit per isoform |
+| 11 | `10_blast_eprunastri.sh` | Validate *Lecanoromycetes* gene assignments against the *E. prunastri* genome |
+| 12 | `11_Differential_Expression_GO_analysis.R` | (R) edgeR differential expression; MA-style volcano plots (Fig. 2); topGO enrichment; heatmaps |
 
-> Steps 01, 04, 09, and 11 are placeholder scripts awaiting final versions.
 
 ---
 
@@ -55,7 +53,7 @@ will need updating for other systems.
 │   └── Evernia_Transcriptome_Full_Pipeline.sh   # original combined pipeline notes
 ├── scripts/
 │   ├── install_R_packages.R                # install all R/Bioconductor dependencies
-│   └── 01–12 …                            # pipeline scripts (see table above)
+│   └── 01–11 …                            # pipeline scripts (see table above)
 └── README.md
 ```
 
@@ -74,7 +72,7 @@ will need updating for other systems.
 | Salmon | via Trinity's `align_and_estimate_abundance.pl` |
 | RiboDetector | `ribodetector_cpu` |
 | GenomeTools v1.6.2 | `~/bin/genometools-1.6.2/bin/gt` (local install) |
-| Entrez Direct | `esearch` — used to resolve a small number of TaxIDs that taxonomizr could not (see step 08) |
+| Entrez Direct | `esearch` — used to resolve a small number of TaxIDs that taxonomizr could not (see step 07) |
 
 ### R (step 08 onward)
 
