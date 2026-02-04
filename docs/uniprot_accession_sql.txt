@@ -1,0 +1,6 @@
+.headers on
+.mode csv
+.output uniprot_accession.csv
+SELECT  UniprotIndex.Accession, UniprotIndex.LinkID, TaxonomyIndex.TaxonomyValue FROM UniprotIndex
+JOIN TaxonomyIndex ON UniprotIndex.LinkID = TaxonomyIndex.NCBITaxonomyAccession;
+.quit
