@@ -34,14 +34,14 @@ University of Minnesota MSI cluster.
 | 05 | `05_transdecoder.sh` | Predict ORFs (TransDecoder); split peptide FASTA into 3 000 files for parallel BLAST | ✓ |
 | 06 | `06a_blastp_nr_array1.sh` / `06b_blastp_nr_array2.sh` | BLASTp vs. NCBI nr — two-part SLURM array job for taxonomy-ID assignment | ✓ |
 | 07 | `07_combine_blastp_nr.sh` | Concatenate per-query BLAST outputs; extract TaxIDs | ✓ |
-| 07b | *(reformatting)* | Parse TransDecoder headers → `transdecoder_ORF_IDs.txt`; reformat BLASTp output → `longest_isoform_blastp.txt` | x |
+| 07b | *(reformatting)* | Parse TransDecoder headers → `transdecoder_ORF_IDs.txt`; reformat BLASTp output → `longest_isoform_blastp.txt` | ? |
 | 08 | `08_Transcript_Taxa_Identification.R` | (R) Select longest isoform per gene; assign taxonomy via taxonomizr; merge with count matrix | ✓ |
-| 09 | `09_blastp_uniprot.sh` | BLASTp vs. UniProt (release 2023_01) for gene functional annotation | ? |
+| 09 | `09_blastp_uniprot.sh` | BLASTp vs. UniProt (release 2023_01) for gene functional annotation | x |
 | 10 | `10_Gene_Function_Identification.R` | (R) Filter gene IDs by symbiont kingdom; select best E-value hit per isoform | ✓ |
 | 11 | `11_blast_eprunastri.sh` | Validate *Lecanoromycetes* gene assignments against the *E. prunastri* genome (tblastn, array 1-99) | ✓ |
 | 12 | `12_Differential_Expression_GO_analysis.R` | (R) edgeR differential expression; MA-style volcano plots (Fig. 2); topGO enrichment; heatmaps | ✓ |
 
-**Legend:** ✓ = complete, ⚠️ = missing reformatting commands (see `docs/MISSING_REFORMATTING_STEPS.md`), ? = script not yet located
+**Legend:** ✓ = complete, ? = missing reformatting commands (see `docs/MISSING_REFORMATTING_STEPS.md`), x = script not yet located
 
 > **Note on functional annotation:** Trinotate was used for protein functional annotation (not shown as a separate step). UniProt annotations were extracted from Trinotate's SQLite database via SQL queries. See `docs/TRINOTATE.md`.
 
