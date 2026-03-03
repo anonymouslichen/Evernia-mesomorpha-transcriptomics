@@ -141,12 +141,10 @@ cat *.out > E.meso_E.prun_blast.out
 
 ## Summary of Missing Commands
 
-| Step | Missing Command | Priority | Notes |
-|------|----------------|----------|-------|
-| Parse TransDecoder headers | awk/sed to create transdecoder_ORF_IDs.txt | Medium | Can reconstruct from known format |
-| Reformat blastp nr output | awk to create longest_isoform_blastp.txt | Medium | Need to clarify column `m` |
-| Entrez esearch for TaxIDs | esearch/efetch/xtract command | Low | Affects only a small subset of genes |
-| Combine E. prunastri BLAST | cat command | Low | Trivial |
-| UniProt BLASTp | Full script | **HIGH** | Core annotation step; completely missing |
-
-The highest priority is locating or reconstructing the UniProt BLASTp script (step 09).
+| Step | Missing Command | Notes |
+|------|----------------|-------|
+| Parse TransDecoder headers | awk/sed to create transdecoder_ORF_IDs.txt | Can reconstruct from known format |
+| Reformat blastp nr output | awk to create longest_isoform_blastp.txt | Need to clarify column `m` |
+| Entrez esearch for TaxIDs | esearch/efetch/xtract command | Affects only a small subset of genes |
+| Combine E. prunastri BLAST | cat command | Trivial |
+| UniProt BLASTp | Full script | completely missing ? |
