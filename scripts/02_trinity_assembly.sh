@@ -1,9 +1,4 @@
 #!/bin/bash -l
-# Trinity de novo assembly — Phase 1
-# Input:  Paired-end FASTQ files (rRNA-filtered), samples file
-# Output: Partial assembly in scratch directory (continued by 03_trinity_phase2.sh)
-# Ref:    Meyer et al. 2024, Sci. Adv. 10, eado2783
-
 #SBATCH --time=48:00:00
 #SBATCH --ntasks=16
 #SBATCH --nodes=1
@@ -12,7 +7,6 @@
 #SBATCH --mail-user=YOUR_EMAIL@institution.edu
 
 # ============== USER CONFIGURATION ==============
-# Set these paths before running
 PROJECT_DIR="${PROJECT_DIR:-~/my_project}"
 FILTERED_READS_DIR="${PROJECT_DIR}/filtered_reads"
 SAMPLES_FILE="${FILTERED_READS_DIR}/samples.txt"
