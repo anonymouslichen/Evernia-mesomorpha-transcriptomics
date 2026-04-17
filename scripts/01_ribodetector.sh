@@ -8,7 +8,7 @@
 #SBATCH --mail-user=YOUR_EMAIL@institution.edu
 
 # ============== USER CONFIGURATION ==============
-PROJECT_DIR="${PROJECT_DIR:-~/path/to/project}"
+PROJECT_DIR="${PROJECT_DIR:-/path/to/project}"
 RAW_READS_DIR="${RAW_READS_DIR:-${PROJECT_DIR}/raw_reads}"
 FILTERED_READS_DIR="${FILTERED_READS_DIR:-${PROJECT_DIR}/filtered_reads}"
 READ_LENGTH="${READ_LENGTH:-150}" 
