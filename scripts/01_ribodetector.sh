@@ -8,10 +8,12 @@
 #SBATCH --mail-user=YOUR_EMAIL@institution.edu
 
 # ============== USER CONFIGURATION ==============
-# Set these paths before running
-PROJECT_DIR="${PROJECT_DIR:-~/my_project}"
-RAW_READS_DIR="${PROJECT_DIR}/raw_reads"
-FILTERED_READS_DIR="${PROJECT_DIR}/filtered_reads"
+PROJECT_DIR="${PROJECT_DIR:-~/path/to/project}"
+RAW_READS_DIR="${RAW_READS_DIR:-${PROJECT_DIR}/raw_reads}"
+FILTERED_READS_DIR="${FILTERED_READS_DIR:-${PROJECT_DIR}/filtered_reads}"
+READ_LENGTH="${READ_LENGTH:-150}" 
+CHUNK_SIZE="${CHUNK_SIZE:-1000}" 
+THREADS="${SLURM_CPUS_PER_TASK:-20}"
 # ================================================
 
 module load parallel
@@ -21,17 +23,22 @@ cd "${RAW_READS_DIR}"
 conda activate ribodetector
 
 fun () {
-  file1="$1"
-	file2=`echo $file1 | awk -F "R1" '{print $1 "R2" $2}'`
-  out_name_R1=`echo $file1 | awk -F "_" '{print $1 "_" $2 "_" "R1_ribodepleted.fastq.gz"}'`
-  out_name_R2=`echo $file2 | awk -F "_" '{print $1 "_" $2 "_" "R2_ribodepleted.fastq.gz"}'`
-  ribodetector_cpu -t 20 \
-    -l 150 \
-    -i $file1 $file2 \
-    -e rrna \
-    --chunk_size 1000 \
-    -o "${FILTERED_READS_DIR}/$out_name_R1" "${FILTERED_READS_DIR}/$out_name_R2"
+    local file1="$1"
+    local file2="${file1/R1/R2}"
+    local sample
+    sample="$(echo "$file1" | awk -F "_" '{print $1 "_" $2}')"
+ 
+    local out_R1="${sample}_R1_ribodepleted.fastq.gz"
+    local out_R2="${sample}_R2_ribodepleted.fastq.gz"
+ 
+    ribodetector_cpu \
+        -t "${THREADS}" \
+        -l "${READ_LENGTH}" \
+        -i "${file1}" "${file2}" \
+        -e rrna \
+        --chunk_size "${CHUNK_SIZE}" \
+        -o "${FILTERED_READS_DIR}/${out_R1}" "${FILTERED_READS_DIR}/${out_R2}"
 }
 export -f fun
-
+ 
 parallel -j 1 --compress fun {} ::: *R1*
