@@ -42,7 +42,7 @@ University of Minnesota MSI cluster.
 | 09 | `09_blastp_uniprot.sh` | BLASTp vs. UniProt (release 2023_01) for gene functional annotation |
 | 10 | `10_Gene_Function_Identification.R` | (R) Filter gene IDs by symbiont kingdom; select best E-value hit per isoform |
 | 11 | `11_blast_eprunastri.sh` | Validate *Lecanoromycetes* gene assignments against the *E. prunastri* genome (tblastn, array 1-99) |
-| 12 | `12_Differential_Expression_GO_analysis.R` | (R) edgeR differential expression; MA-style volcano plots (Fig. 2); topGO enrichment; heatmaps |
+| 12 | `12_Differential_Expression_GO_analysis.R` | (R) edgeR differential expression; volcano plots (Fig. 2); topGO enrichment; heatmaps |
 
 ---
 
